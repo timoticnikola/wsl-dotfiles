@@ -1,7 +1,11 @@
 #!/bin/bash
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install vim zsh curl wget -y
+sudo apt install vim zsh curl wget x11-apps socat -y
+
+mkdir /tmp/.X11-unix
+socat -b65536 UNIX-LISTEN:/tmp/.X11-unix/X0,fork,mode=777 VSOCK-CONNECT:2:6000 &
+export DISPLAY=:0.0
 
 chsh -s $(which zsh)
 
